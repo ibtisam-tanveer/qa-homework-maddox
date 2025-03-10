@@ -59,6 +59,9 @@ a buggy version of the application to check whether your tests can catch the bug
 
 ## Getting Started
 This project was bootstrapped with [Next.js](https://nextjs.org/). Below you will find some information on how to perform common tasks.
+The dummy credentials for the login page are:
+- Email: test@maddox123.ai
+- Password: supersecure
 
 ### Installing dependencies
 
