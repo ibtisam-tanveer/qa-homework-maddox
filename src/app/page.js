@@ -19,7 +19,7 @@ export default function Home() {
     }, []);
 
 
-    const [count, setCount] = useState(1);
+    const [count, setCount] = useState(0);
     const handleLogout = () => {
         localStorage.removeItem("token");
         router.replace("/login");
