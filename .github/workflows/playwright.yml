@@ -32,6 +32,9 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      - name: Build Next.js application
+        run: npm run build
+
       - name: Start frontend server
         run: |
           npm run start &
