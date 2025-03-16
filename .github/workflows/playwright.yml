@@ -55,7 +55,6 @@
 
 #       - name: Run Playwright Tests
 #         run: npx playwright test
-
 name: Playwright Tests
 
 on: [push, pull_request]
