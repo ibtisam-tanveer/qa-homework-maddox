@@ -1,33 +1,45 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
+import { baseUrl, loginUrl } from "../constants/routes";
+/**
+ * This test is responsible for testing the login flow
+ * Methods used:
+ * 1. fill: fill the input fields based on the id
+ * 2. waitForURL: wait until navigation happen to required page
+ * 3. click: use to click button based on id type or text it have
+ * 4. expect.thoHave: for assertion
+ */
+test("should allow me to login and give error message incase of wrong credentials", async ({
+  page,
+}) => {
+  // Visiting the login page
+  await page.goto(`${baseUrl}${loginUrl}`);
 
-test('Login flow - success and failure', async ({ page }) => {
-    // Visit the login page
-    await page.goto('http://localhost:3000/login');
+  // Locating  the email input and fill it
+  await page.fill("#email-input", "test@maddox123.ai");
 
-    // Locate the email input and fill it
-    await page.fill('#email-input', 'test@maddox123.ai'); 
+  // Locating the password field using id and filing it
+  await page.fill("#password-input", "supersecure");
 
-    // Locate the password input and fill it
-    await page.fill('#password-input', 'supersecure'); 
+  // clicking the submitt button to send response
+  await page.click('button[type="submit"]');
 
-    // Click the login button
-    await page.click('button[type="submit"]');
+  // Waiting for navigation to the home page
+  await page.waitForURL(baseUrl);
 
-    // Wait for navigation to the home page
-    await page.waitForURL('http://localhost:3000/');
+  // Asserting that we are on the home page
+  await expect(page).toHaveURL(baseUrl);
 
-    // Assert that we are on the home page
-    await expect(page).toHaveURL('http://localhost:3000/');
+  // performing logout to relogin using wrong credentials
+  await page.click('button:has-text("Logout")');
+  await page.waitForURL(`${baseUrl}${loginUrl}`);
 
-    // Logout to test unsuccessful login
-    await page.click('button:has-text("Logout")');
-    await page.waitForURL('http://localhost:3000/login');
+  // Test invalid login
+  await page.fill("#email-input", "test@test.com");
+  await page.fill("#password-input", "fail_test");
+  await page.click('button[type="submit"]');
 
-    // Test invalid login
-    await page.fill('#email-input', 'invalid@example.com');
-    await page.fill('#password-input', 'wrongpassword');
-    await page.click('button[type="submit"]');
-
-    // Check for error message
-    await expect(page.locator('p')).toHaveText('Invalid email or password. Try again.');
+  // Checking for error message to display
+  await expect(page.locator("p")).toHaveText(
+    "Invalid email or password. Try again."
+  );
 });
