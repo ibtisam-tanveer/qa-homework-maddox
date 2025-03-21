@@ -34,3 +34,20 @@ test("should allow me to increase or decrease counter value", async ({ page }) =
   await page.click('button:has-text("Reset")');
   await expect(counter).toHaveText("0");
 });
+
+
+  // // Clicking increment button to check its response 
+  // // await page.click('button:has-text("+")');
+  // // await expect(counter).toHaveText("1");
+  // for (let i = 1; i <= 3; i++) {
+  //   await page.click('button:has-text("+")');
+  //   await expect(counter).toHaveText(`${i}`);
+  // }
+
+  // // Clicking decrement button and verify response
+  // // await page.click('button:has-text("-")');
+  // // await expect(counter).toHaveText("0");
+  // for (let i = 2; i >= 0; i--) {
+  //   await page.click('button:has-text("-")');
+  //   await expect(counter).toHaveText(`${i}`);
+  // }
